@@ -3,10 +3,10 @@ apply plugin: 'com.android.application'
 android {
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 21
+        targetSdkVersion 21 // Must be 21
     }
     compileSdkVersion 'Google Inc.:Google APIs:21'
-    buildToolsVersion '21.1.2'
+    buildToolsVersion '21.1.2' // Must be 21
 }
 
 buildscript {
