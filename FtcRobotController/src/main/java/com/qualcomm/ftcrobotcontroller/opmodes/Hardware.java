@@ -24,54 +24,7 @@ public class Hardware extends OpMode {
 
     @Override
     public void init() {
-
-        warningGenerated = false;
-        warningMessage = "Can't map: ";
-
-        // Connects the left drive wheel motor
-        // If the left drive motor cannot be found, the app gives an error
-        try
-        {
-            leftMotor = hardwareMap.dcMotor.get("left_drive");
-        }
-        catch (Exception exception) {
-            mutateWarningMessage("left_drive");
-
-            DbgLog.msg(exception.getLocalizedMessage());
-
-            leftMotor = null;
-        }
-
-        // Connects the right drive wheel motor
-        // If the right drive motor cannot be found, the app gives an error
-        try
-        {
-            rightMotor = hardwareMap.dcMotor.get("right_drive");
-            rightMotor.setDirection(DcMotor.Direction.REVERSE);
-        }
-        catch (Exception exception)
-        {
-            mutateWarningMessage("right_drive");
-            DbgLog.msg (exception.getLocalizedMessage ());
-
-            rightMotor = null;
-        }
-
-        // Connects the unnamed subsystem servo motor
-        // If the servo motor cannot be found, the app gives an error
-        try
-        {
-            servo = hardwareMap.servo.get ("servo");
-            servo.setPosition(SERVO_START);
-        }
-        catch (Exception exception)
-        {
-            mutateWarningMessage("servo");
-            DbgLog.msg(exception.getLocalizedMessage());
-
-            servo = null;
-        }
-
+        // KEEP THIS METHOD HERE
     }
 
     @Override
@@ -104,39 +57,5 @@ public class Hardware extends OpMode {
     /**
      * THE FOLLOWING CODE IS RESERVED TO WARNING VARIABLES AND METHODS
      */
-    private boolean warningGenerated = false;
-    private String warningMessage;
-
-    // Accesses whether a warning has been generated
-    public boolean accessWarningGenerated ()
-    {
-        return warningGenerated;
-    }
-
-    // Accesses the warning message
-    public String accessWarningMessage ()
-    {
-        return warningMessage;
-    }
-
-    /**
-     * Mutates the warning message by adding the specified message to the current
-     * message; sets the warning indicator to true
-     *
-     * A comma will be added before the specified message if the message isn't empty
-     */
-    public void mutateWarningMessage (String exceptionMessage)
-
-    {
-        if (warningGenerated)
-        {
-            warningMessage += ", ";
-        }
-        warningGenerated = true;
-        warningMessage += exceptionMessage;
-    }
-
-
-
 
 }

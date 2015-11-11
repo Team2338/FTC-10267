@@ -54,10 +54,6 @@ public class Telemetry extends Hardware
     // Update the telemetry with current values from the base class.
     public void update_telemetry ()
     {
-        if (accessWarningGenerated ())
-        {
-            set_first_message (accessWarningMessage ());
-        }
 
         // Send telemetry data to the driver station.
         telemetry.addData

@@ -19,12 +19,12 @@ public class AutoForward extends LinearOpMode {
         waitForStart();
 
         leftMotor.setPower(1.0);
-        rightMotor. setPower(1.0);
+        rightMotor.setPower(1.0);
 
         sleep(2000);
 
-        leftMotor. setPower(0.0);
-        rightMotor. setPower(0.0);
+        leftMotor.setPower(0.0);
+        rightMotor.setPower(0.0);
 
     }
 }
