@@ -3,6 +3,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.LegacyModule;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
 
@@ -13,12 +14,12 @@ public class Hardware extends OpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
     DcMotor beltMotor;
-    DcMotor winchMotor;
+    Servo winchServo;
     Servo servo;
 
     double UP_POSITION = 1.0;
     double DOWN_POSITION = 0.0;
-    double SERVO_START = 0.0;
+    //double SERVO_START = 0.0;
     float leftY = 0;
     float rightY = 0;
 
