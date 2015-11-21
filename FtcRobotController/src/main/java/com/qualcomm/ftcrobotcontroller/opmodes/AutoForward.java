@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
- * Created by Gavin on 10/28/2015.
+ * Created by FTC10267 on 10/28/2015.
  */
 public class AutoForward extends LinearOpMode {
     DcMotor leftMotor;

@@ -12,9 +12,8 @@ public class AutoStateMachine extends OpMode {
     // Declare and initialize constants
     DcMotor leftMotor;
     DcMotor rightMotor;
-    ElapsedTime time;
 
-    final static int ENCODER_CPR = 1440;     //Encoder Counts per Revolution
+    final static int ENCODER_CPR = 360;     //Encoder Counts per Revolution
     final static double GEAR_RATIO = 3;      //Gear Ratio
     final static int WHEEL_DIAMETER = 4;     //Diameter of the wheel in inches
     final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
@@ -25,10 +24,20 @@ public class AutoStateMachine extends OpMode {
     double forwardCounts = ENCODER_CPR * forwardRotations * GEAR_RATIO;
 
     // Turning calculations
-    final static double turnTime = 1.0;
+    int leftTurnDistance = 1;
+    double leftRotations = leftTurnDistance / CIRCUMFERENCE;
+    double leftTurnCounts = ENCODER_CPR * leftRotations * GEAR_RATIO;
+    int rightTurnDistance = 1;
+    double rightRotations = rightTurnDistance / CIRCUMFERENCE;
+    double rightTurnCounts = ENCODER_CPR * rightRotations * GEAR_RATIO;
+
+    // Driving straight to mountain calculations
+    int forwardToMntDistance = 30;
+    double forwardToMntRotations = forwardDistance / CIRCUMFERENCE;
+    double forwardToMntCounts = ENCODER_CPR * forwardRotations * GEAR_RATIO;
 
     // Declaring states of StateMachine
-    enum State {drivingStraight, turning, done};
+    enum State {drivingStraight, turning, drivingToMnt, done};
     State state;
 
     @Override
@@ -40,13 +49,11 @@ public class AutoStateMachine extends OpMode {
         leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 
-        time = new ElapsedTime();
         state = State.drivingStraight;
     }
 
     @Override
     public void loop() {
-        double currentTime = time.time();
         switch(state) {
             case drivingStraight:
                 leftMotor.setTargetPosition((int) forwardCounts);
@@ -59,14 +66,28 @@ public class AutoStateMachine extends OpMode {
                 rightMotor.setPower(1.0);
 
                 state = State.turning;
-                time.reset();
             case turning:
+                leftMotor.setTargetPosition((int) leftTurnCounts);
+                rightMotor.setTargetPosition((int) rightTurnCounts);
+
+                leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+                rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
                 leftMotor.setPower(1.0);
                 rightMotor.setPower(-1.0);
-                if (currentTime > turnTime) {
-                    state = State.done;
-                    time.reset();
-                }
+
+                state = State.drivingToMnt;
+            case drivingToMnt:
+                leftMotor.setTargetPosition((int) forwardToMntCounts);
+                rightMotor.setTargetPosition((int) forwardToMntCounts);
+
+                leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+                rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+                leftMotor.setPower(1.0);
+                rightMotor.setPower(1.0);
+
+                state = State.done;
             case done:
                 leftMotor.setPower(0);
                 rightMotor.setPower(0);

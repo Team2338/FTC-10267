@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
- * Created by Eddie Ho on 11/18/2015.
+ * Created by FTC10267 on 11/18/2015.
  */
 public class AutoForwardEncoder extends OpMode {
     DcMotor rightMotor;
