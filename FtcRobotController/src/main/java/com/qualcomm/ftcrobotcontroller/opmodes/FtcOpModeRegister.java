@@ -57,6 +57,11 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register ("TeleOp", TeleOp.class);
     manager.register ("AutoForward", AutoForward.class);
+    manager.register("AutoForwardEncoder", AutoForwardEncoder.class);
+    manager.register("AutoBlue1", AutoBlue1.class);
+    manager.register("AutoBlue2", AutoBlue2.class);
+    manager.register("AutoRed1", AutoRed1.class);
+    manager.register("AutoRed2", AutoRed2.class);
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.

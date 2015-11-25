@@ -12,7 +12,7 @@ public class AutoForwardEncoder extends OpMode {
     DcMotor leftMotor;
 
     final static int ENCODER_CPR = 1440;     //Encoder Counts per Revolution
-    final static double GEAR_RATIO = 3;      //Gear Ratio
+    final static double GEAR_RATIO = 2;      //Gear Ratio
     final static int WHEEL_DIAMETER = 4;     //Diameter of the wheel in inches
     final static int DISTANCE = 24;          //Distance in inches to drive
 
@@ -39,8 +39,8 @@ public class AutoForwardEncoder extends OpMode {
         leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
         rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-        leftMotor.setPower(0.5);
-        rightMotor.setPower(0.5);
+        leftMotor.setPower(1.0);
+        rightMotor.setPower(1.0);
     }
 
     @Override
