@@ -67,7 +67,7 @@ public class AutoRed1 extends OpMode {
 
             case turning:
                 leftMotor.setTargetPosition((int) turningCounts);
-                rightMotor.setTargetPosition((int) turningCounts);
+                rightMotor.setTargetPosition((int) -turningCounts);
 
                 leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
                 rightMotor.setChannelMode((DcMotorController.RunMode.RUN_USING_ENCODERS));

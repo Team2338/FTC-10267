@@ -5,9 +5,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
- * Created by Eddie Ho on 11/21/2015.
+ * Created by FTC10267 on 11/21/2015.
  */
-public class AutoRed2 extends OpMode {
+public class AutoTester extends OpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
     DcMotor beltMotor;
@@ -19,7 +19,7 @@ public class AutoRed2 extends OpMode {
     final static double CIRCUMFERENCE = Math.PI * WHEEL_DIAMETER;
 
     // Forward calcluations
-    final static int forwardDistance = 24;          //Distance in inches to drive
+    final static int forwardDistance = 48;          //Distance in inches to drive
     final static double forwardRotations = forwardDistance / CIRCUMFERENCE;
     final static double forwardCounts = ENCODER_CPR * forwardRotations * GEAR_RATIO;
 
@@ -28,13 +28,12 @@ public class AutoRed2 extends OpMode {
     final static double turningRotations = turningDistance / CIRCUMFERENCE;
     final static double turningCounts = ENCODER_CPR * turningRotations * GEAR_RATIO;
 
-    // Foward to mountain calculations
+    // Forward to mountain calculations
     final static int forwardToMntDistance = 30;
     final static double forwardToMntRotations = forwardToMntDistance / CIRCUMFERENCE;
     final static double forwardToMntCounts = ENCODER_CPR * forwardToMntRotations * GEAR_RATIO;
 
-    enum State {driveForward, turning, driveForwardToMtn, done};
-    State state;
+    int step;
 
 
     @Override
@@ -46,39 +45,31 @@ public class AutoRed2 extends OpMode {
         leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
         rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 
-        state = State.driveForward;
+        step = 1;
     }
 
     @Override
     public void loop() {
-        switch(state) {
-            case driveForward:
-                leftMotor.setTargetPosition((int) forwardCounts);
-                rightMotor.setTargetPosition((int) forwardCounts);
+
+        switch (step) {
+            case 1:
+                leftMotor.setTargetPosition((int) turningCounts);
+                rightMotor.setTargetPosition((int) -turningCounts);
 
                 leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
                 rightMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
                 leftMotor.setPower(1.0);
-                rightMotor.setPower(1.0);
-
-                state = State.turning;
-                break;
-
-            case turning:
-                leftMotor.setTargetPosition((int) turningCounts);
-                rightMotor.setTargetPosition((int) -turningCounts);
-
-                leftMotor.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-                rightMotor.setChannelMode((DcMotorController.RunMode.RUN_USING_ENCODERS));
-
-                leftMotor.setPower(1.0);
                 rightMotor.setPower(-1.0);
 
-                state = State.driveForwardToMtn;
+                if(leftMotor.getCurrentPosition() == turningCounts) {
+                    step++;
+                }
                 break;
+            case 2:
+                leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
 
-            case driveForwardToMtn:
                 leftMotor.setTargetPosition((int) forwardToMntCounts);
                 rightMotor.setTargetPosition((int) forwardToMntCounts);
 
@@ -89,14 +80,10 @@ public class AutoRed2 extends OpMode {
                 rightMotor.setPower(1.0);
 
                 break;
-            case done:
-                leftMotor.setPower(0.0);
-                rightMotor.setPower(0.0);
-                state = State.done;
-                break;
+
         }
+
         telemetry.addData("Left Position", leftMotor.getCurrentPosition());
         telemetry.addData("Right Position", rightMotor.getCurrentPosition());
     }
-
 }

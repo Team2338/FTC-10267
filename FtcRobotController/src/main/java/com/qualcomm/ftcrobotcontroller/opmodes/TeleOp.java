@@ -16,17 +16,21 @@ public class TeleOp extends Telemetry {
 
         backArm = hardwareMap.servo.get ("back_arm"); // Connects the unnamed subsystem servo motor
         frontArm = hardwareMap.servo.get ("front_arm");
+
+        winchMotor = hardwareMap.dcMotor.get("winch_motor");
+        // theShaft = hardwareMap.dcMotor.get ("shaft");
         // beltMotor = hardwareMap.dcMotor.get("belt_motor");
-        // winchServo = hardwareMap.servo.get("winch_servo");
     }
 
     @Override
     public void loop() {
-    leftY = -gamepad1.left_stick_y;
-    rightY = -gamepad1.right_stick_y;
+    oneLeftY = -gamepad1.left_stick_y;
+    oneRightY = -gamepad1.right_stick_y;
+    twoLeftY = gamepad2.left_stick_y;
 
-    leftMotor.setPower(leftY);
-    rightMotor.setPower(rightY);
+    leftMotor.setPower(oneLeftY);
+    rightMotor.setPower(oneRightY);
+    winchMotor.setPower(twoLeftY);
 
     if (gamepad2.dpad_left) {
         backArm.setPosition(DOWN_POSITION);
@@ -61,6 +65,7 @@ public class TeleOp extends Telemetry {
 
     telemetry.addData("00:", "Back Arm Position: " + backArm.getPosition());
     telemetry.addData("00:", "Front Arm Position: " + frontArm.getPosition ());
+    telemetry.addData("02:", "Winch Position: " + winchMotor.getCurrentPosition());
     update_telemetry();
     update_gamepad_telemetry();
     }

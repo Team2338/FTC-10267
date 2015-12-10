@@ -69,7 +69,7 @@ public class AutoBlue2 extends OpMode {
 
             case turning:
                 leftMotor.setTargetPosition((int) turningCounts);
-                rightMotor.setTargetPosition((int) turningCounts);
+                rightMotor.setTargetPosition((int) -turningCounts);
 
                 leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
                 rightMotor.setChannelMode((DcMotorController.RunMode.RUN_TO_POSITION));

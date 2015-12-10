@@ -14,15 +14,18 @@ public class Hardware extends OpMode {
     DcMotor leftMotor;
     DcMotor rightMotor;
     DcMotor beltMotor;
-    Servo winchServo;
+    DcMotor winchMotor;
     Servo backArm;
     Servo frontArm;
+    DcMotor theShaft;
 
     double UP_POSITION = 1.0;
     double DOWN_POSITION = 0.0;
     //double SERVO_START = 0.0;
-    float leftY = 0;
-    float rightY = 0;
+    float oneLeftY = 0;
+    float oneRightY = 0;
+    float twoLeftY = 0;
+    float twoRightY = 0;
 
     @Override
     public void init() {

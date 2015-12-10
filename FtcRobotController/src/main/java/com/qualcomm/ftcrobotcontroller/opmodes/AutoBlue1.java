@@ -33,7 +33,7 @@ public class AutoBlue1 extends OpMode {
     final static double forwardToMntRotations = forwardToMntDistance / CIRCUMFERENCE;
     final static double forwardToMntCounts = ENCODER_CPR * forwardToMntRotations * GEAR_RATIO;
 
-    enum State {driveForward, turning, driveForwardToMtn, done};
+    enum State {driveForward, turning, driveForwardToMtn};
     State state;
 
 
@@ -62,12 +62,18 @@ public class AutoBlue1 extends OpMode {
                 leftMotor.setPower(1.0);
                 rightMotor.setPower(1.0);
 
-                state = State.turning;
+                if((leftMotor.getCurrentPosition() == forwardCounts) && (rightMotor.getCurrentPosition() == forwardCounts)) {
+                    state = State.turning;
+                }
+
                 break;
 
             case turning:
+                leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
                 leftMotor.setTargetPosition((int) turningCounts);
-                rightMotor.setTargetPosition((int) turningCounts);
+                rightMotor.setTargetPosition((int) -turningCounts);
 
                 leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
                 rightMotor.setChannelMode((DcMotorController.RunMode.RUN_TO_POSITION));
@@ -75,10 +81,16 @@ public class AutoBlue1 extends OpMode {
                 leftMotor.setPower(1.0);
                 rightMotor.setPower(-1.0);
 
-                state = State.driveForwardToMtn;
+                if((leftMotor.getCurrentPosition() == turningCounts) && (rightMotor.getCurrentPosition() == -turningCounts)) {
+                    state = State.driveForwardToMtn;
+                }
+
                 break;
 
             case driveForwardToMtn:
+                leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
                 leftMotor.setTargetPosition((int) forwardToMntCounts);
                 rightMotor.setTargetPosition((int) forwardToMntCounts);
 
@@ -89,13 +101,8 @@ public class AutoBlue1 extends OpMode {
                 rightMotor.setPower(1.0);
 
                 break;
-            case done:
-                leftMotor.setPower(0.0);
-                rightMotor.setPower(0.0);
-                state = State.done;
-                break;
-
         }
+
         telemetry.addData("Left Position", leftMotor.getCurrentPosition());
         telemetry.addData("Right Position", rightMotor.getCurrentPosition());
     }
