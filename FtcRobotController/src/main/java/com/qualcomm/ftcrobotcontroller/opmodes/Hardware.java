@@ -17,7 +17,6 @@ public class Hardware extends OpMode {
     DcMotor winchMotor;
     Servo backArm;
     Servo frontArm;
-    DcMotor theShaft;
 
     double UP_POSITION = 1.0;
     double DOWN_POSITION = 0.0;

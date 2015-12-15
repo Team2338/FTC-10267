@@ -63,15 +63,15 @@ public class AutoTester extends OpMode {
                 rightMotor.setPower(-1.0);
 
                 if(leftMotor.getCurrentPosition() == turningCounts) {
+                    leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+                    rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+
                     step++;
                 }
                 break;
             case 2:
-                leftMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-                rightMotor.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
-
-                leftMotor.setTargetPosition((int) forwardToMntCounts);
-                rightMotor.setTargetPosition((int) forwardToMntCounts);
+                leftMotor.setTargetPosition((int) (forwardToMntCounts + turningCounts));
+                rightMotor.setTargetPosition((int) (forwardToMntCounts - turningCounts));
 
                 leftMotor.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
                 rightMotor.setChannelMode((DcMotorController.RunMode.RUN_TO_POSITION));

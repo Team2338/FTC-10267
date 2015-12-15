@@ -66,14 +66,6 @@ public class Telemetry extends Hardware
             , "Right Drive: "
                 + rightDrive_Power ()
             );
-        telemetry.addData
-            ( "03"
-            , "Left Arm: "
-            );
-        telemetry.addData
-            ( "04"
-            , "Hand Position: "
-            );
     }
 
     // Update the telemetry with current gamepad readings.

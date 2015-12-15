@@ -62,7 +62,7 @@ public class AutoBlue1 extends OpMode {
                 leftMotor.setPower(1.0);
                 rightMotor.setPower(1.0);
 
-                if((leftMotor.getCurrentPosition() == forwardCounts) && (rightMotor.getCurrentPosition() == forwardCounts)) {
+                if((leftMotor.getCurrentPosition() == forwardCounts - 5) && (rightMotor.getCurrentPosition() == forwardCounts - 5)) {
                     state = State.turning;
                 }
 
@@ -81,7 +81,7 @@ public class AutoBlue1 extends OpMode {
                 leftMotor.setPower(1.0);
                 rightMotor.setPower(-1.0);
 
-                if((leftMotor.getCurrentPosition() == turningCounts) && (rightMotor.getCurrentPosition() == -turningCounts)) {
+                if((leftMotor.getCurrentPosition() == turningCounts - 5) && (rightMotor.getCurrentPosition() == -turningCounts + 5)) {
                     state = State.driveForwardToMtn;
                 }
 
