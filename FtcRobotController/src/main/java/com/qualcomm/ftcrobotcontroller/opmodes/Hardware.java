@@ -18,9 +18,6 @@ public class Hardware extends OpMode {
     Servo backArm;
     Servo frontArm;
 
-    double UP_POSITION = 1.0;
-    double DOWN_POSITION = 0.0;
-    //double SERVO_START = 0.0;
     float oneLeftY = 0;
     float oneRightY = 0;
     float twoLeftY = 0;

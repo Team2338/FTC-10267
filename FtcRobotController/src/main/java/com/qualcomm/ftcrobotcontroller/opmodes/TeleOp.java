@@ -19,6 +19,9 @@ public class TeleOp extends Telemetry {
 
         winchMotor = hardwareMap.dcMotor.get("winch_motor"); // Connects the arm angle motor
         beltMotor = hardwareMap.dcMotor.get("belt_motor"); // Connects the arm belt motor
+
+        frontArm.setPosition(1.0);
+        backArm.setPosition(0.4);
     }
 
     @Override
@@ -31,26 +34,31 @@ public class TeleOp extends Telemetry {
     rightMotor.setPower(oneRightY);
     beltMotor.setPower(twoRightY);
 
-    if (gamepad2.dpad_left) {
-        backArm.setPosition(DOWN_POSITION);
-    }
-    if (gamepad2.dpad_right) {
-        backArm.setPosition(UP_POSITION);
+    if (gamepad1.right_bumper && frontArm.getPosition() == 0.5) {
+        frontArm.setPosition(1.0);
     }
 
-    if (gamepad1.dpad_left) {
-        frontArm.setPosition(DOWN_POSITION);
+    if (gamepad1.right_bumper && frontArm.getPosition() == 1.0) {
+        frontArm.setPosition(0.5);
     }
-    if (gamepad1.dpad_right) {
-        frontArm.setPosition(UP_POSITION);
+
+    if (gamepad1.left_bumper && backArm.getPosition() == 0.4) {
+        backArm.setPosition(1.0);
+
+    }
+
+    if (gamepad1.left_bumper && backArm.getPosition()== 1.0) {
+        backArm.setPosition(0.4);
     }
 
     if (gamepad2.y) {
-        winchMotor.setPower(0.2);
+        winchMotor.setPower(0.25);
+    } else if (gamepad2.a) {
+        winchMotor.setPower(-0.25);
+    } else {
+        winchMotor.setPower(0);
     }
-    if (gamepad2.a) {
-        winchMotor.setPower(-0.2);
-    }
+
 
     telemetry.addData("00:", "Back Arm Position: " + backArm.getPosition());
     telemetry.addData("01:", "Front Arm Position: " + frontArm.getPosition ());
