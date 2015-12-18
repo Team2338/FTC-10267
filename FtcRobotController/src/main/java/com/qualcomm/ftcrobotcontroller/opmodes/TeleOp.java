@@ -21,7 +21,7 @@ public class TeleOp extends Telemetry {
         beltMotor = hardwareMap.dcMotor.get("belt_motor"); // Connects the arm belt motor
 
         frontArm.setPosition(1.0);
-        backArm.setPosition(0.5);
+        backArm.setPosition(0.38);
     }
 
 
@@ -45,12 +45,12 @@ public class TeleOp extends Telemetry {
         frontArm.setPosition(0.5);
     }
 
-    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.51 && backArm.getPosition() >= 0.49)) {
-        backArm.setPosition(1.0);
+    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.39 && backArm.getPosition() >= 0.37)) {
+        backArm.setPosition(0.8);
     }
 
-    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 1.01 && backArm.getPosition() >= 0.99)) {
-        backArm.setPosition(0.5);
+    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.81 && backArm.getPosition() >= 0.79)) {
+        backArm.setPosition(0.38);
     }
 
     telemetry.addData("00:", "Back Arm Position: " + backArm.getPosition());
