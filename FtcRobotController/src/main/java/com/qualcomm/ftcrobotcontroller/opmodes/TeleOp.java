@@ -2,6 +2,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Created by FTC10267 on 10/21/2015.
@@ -22,6 +23,11 @@ public class TeleOp extends Telemetry {
 
         frontArm.setPosition(1.0);
         backArm.setPosition(0.38);
+
+        frontArmTimeIn = new ElapsedTime();
+        frontArmTimeOut = new ElapsedTime();
+        backArmTimeIn = new ElapsedTime();
+        backArmTimeOut = new ElapsedTime();
     }
 
 
@@ -37,27 +43,39 @@ public class TeleOp extends Telemetry {
     winchMotor.setPower(twoLeftY);
     beltMotor.setPower(twoRightY);
 
-    if ((gamepad1.right_bumper) && (frontArm.getPosition() <= 0.51 && frontArm.getPosition() >= 0.49)) {
-        frontArm.setPosition(1.0);
-    }
+    do {
+        if ((gamepad1.right_bumper) && (frontArm.getPosition() <= 0.51 && frontArm.getPosition() >= 0.49)) {
+            frontArmTimeIn.reset();
+            frontArm.setPosition(1.0);
+        }
+    } while (frontArmTimeIn.time() > 0.25);
 
-    if ((gamepad1.right_bumper) && (frontArm.getPosition() <= 1.01 && frontArm.getPosition() >= 0.99)) {
-        frontArm.setPosition(0.5);
-    }
+    do {
+        if ((gamepad1.right_bumper) && (frontArm.getPosition() <= 1.01 && frontArm.getPosition() >= 0.99)) {
+            frontArmTimeOut.reset();
+            frontArm.setPosition(0.5);
+        }
+    } while (frontArmTimeOut.time() > 0.25);
 
-    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.39 && backArm.getPosition() >= 0.37)) {
-        backArm.setPosition(0.8);
-    }
+    do {
+        if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.39 && backArm.getPosition() >= 0.37)) {
+            backArmTimeOut.reset();
+            backArm.setPosition(0.8);
+        }
+    } while (backArmTimeOut.time() > 0.25);
 
-    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.81 && backArm.getPosition() >= 0.79)) {
-        backArm.setPosition(0.38);
-    }
+    do {
+        if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.81 && backArm.getPosition() >= 0.79)) {
+            backArmTimeIn.reset();
+            backArm.setPosition(0.38);
+        }
+    } while (backArmTimeIn.time() > 0.25);
 
     telemetry.addData("00:", "Back Arm Position: " + backArm.getPosition());
-    telemetry.addData("01:", "Front Arm Position: " + frontArm.getPosition ());
-    telemetry.addData("02:", "Winch Position: " + winchMotor.getCurrentPosition());
-    telemetry.addData("03:", "Belt Position: " + beltMotor.getCurrentPosition());
+    telemetry.addData("01:", "Front Arm Position: " + frontArm.getPosition());
+        telemetry.addData("02:", "Winch Position: " + winchMotor.getCurrentPosition());
+        telemetry.addData("03:", "Belt Position: " + beltMotor.getCurrentPosition());
     update_telemetry();
-    update_gamepad_telemetry();
+        update_gamepad_telemetry();
     }
 }

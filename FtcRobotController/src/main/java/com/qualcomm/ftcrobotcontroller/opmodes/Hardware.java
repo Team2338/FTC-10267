@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.LegacyModule;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.robocol.Telemetry;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * Created by FTC10267 on 10/28/2015.
@@ -17,6 +18,11 @@ public class Hardware extends OpMode {
     DcMotor winchMotor;
     Servo backArm;
     Servo frontArm;
+
+    ElapsedTime frontArmTimeIn;
+    ElapsedTime frontArmTimeOut;
+    ElapsedTime backArmTimeIn;
+    ElapsedTime backArmTimeOut;
 
     float oneLeftY = 0;
     float oneRightY = 0;
