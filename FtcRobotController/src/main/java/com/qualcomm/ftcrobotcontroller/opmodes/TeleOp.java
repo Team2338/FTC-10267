@@ -21,44 +21,37 @@ public class TeleOp extends Telemetry {
         beltMotor = hardwareMap.dcMotor.get("belt_motor"); // Connects the arm belt motor
 
         frontArm.setPosition(1.0);
-        backArm.setPosition(0.4);
+        backArm.setPosition(0.5);
     }
+
 
     @Override
     public void loop() {
     oneLeftY = -gamepad1.left_stick_y;
     oneRightY = -gamepad1.right_stick_y;
+    twoLeftY = -gamepad2.left_stick_y;
     twoRightY = gamepad2.right_stick_y;
 
     leftMotor.setPower(oneLeftY);
     rightMotor.setPower(oneRightY);
+    winchMotor.setPower(twoLeftY);
     beltMotor.setPower(twoRightY);
 
-    if (gamepad1.right_bumper && frontArm.getPosition() == 0.5) {
+    if ((gamepad1.right_bumper) && (frontArm.getPosition() == 0.5) || frontArm.getPosition() == 0.49 || frontArm.getPosition() == 0.51) {
         frontArm.setPosition(1.0);
     }
 
-    if (gamepad1.right_bumper && frontArm.getPosition() == 1.0) {
+    if ((gamepad1.right_bumper) && (frontArm.getPosition() == 1.0) || frontArm.getPosition() == 0.99 || frontArm.getPosition() == 1.01) {
         frontArm.setPosition(0.5);
     }
 
-    if (gamepad1.left_bumper && backArm.getPosition() == 0.4) {
+    if ((gamepad1.left_bumper) && (backArm.getPosition() == 0.5) || backArm.getPosition() == 0.49 || backArm.getPosition() == 0.51) {
         backArm.setPosition(1.0);
-
     }
 
-    if (gamepad1.left_bumper && backArm.getPosition()== 1.0) {
-        backArm.setPosition(0.4);
+    if ((gamepad1.left_bumper) && (backArm.getPosition() == 1.0) || backArm.getPosition() == 0.99 || backArm.getPosition() == 1.01) {
+        backArm.setPosition(0.5);
     }
-
-    if (gamepad2.y) {
-        winchMotor.setPower(0.25);
-    } else if (gamepad2.a) {
-        winchMotor.setPower(-0.25);
-    } else {
-        winchMotor.setPower(0);
-    }
-
 
     telemetry.addData("00:", "Back Arm Position: " + backArm.getPosition());
     telemetry.addData("01:", "Front Arm Position: " + frontArm.getPosition ());
