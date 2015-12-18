@@ -19,11 +19,6 @@ public class Hardware extends OpMode {
     Servo backArm;
     Servo frontArm;
 
-    ElapsedTime frontArmTimeIn;
-    ElapsedTime frontArmTimeOut;
-    ElapsedTime backArmTimeIn;
-    ElapsedTime backArmTimeOut;
-
     float oneLeftY = 0;
     float oneRightY = 0;
     float twoLeftY = 0;
