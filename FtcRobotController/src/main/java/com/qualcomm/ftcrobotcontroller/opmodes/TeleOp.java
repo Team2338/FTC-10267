@@ -37,19 +37,19 @@ public class TeleOp extends Telemetry {
     winchMotor.setPower(twoLeftY);
     beltMotor.setPower(twoRightY);
 
-    if ((gamepad1.right_bumper) && (frontArm.getPosition() == 0.5) || frontArm.getPosition() == 0.49 || frontArm.getPosition() == 0.51) {
+    if ((gamepad1.right_bumper) && (frontArm.getPosition() <= 0.51 && frontArm.getPosition() >= 0.49)) {
         frontArm.setPosition(1.0);
     }
 
-    if ((gamepad1.right_bumper) && (frontArm.getPosition() == 1.0) || frontArm.getPosition() == 0.99 || frontArm.getPosition() == 1.01) {
+    if ((gamepad1.right_bumper) && (frontArm.getPosition() <= 1.01 && frontArm.getPosition() >= 0.99)) {
         frontArm.setPosition(0.5);
     }
 
-    if ((gamepad1.left_bumper) && (backArm.getPosition() == 0.5) || backArm.getPosition() == 0.49 || backArm.getPosition() == 0.51) {
+    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 0.51 && backArm.getPosition() >= 0.49)) {
         backArm.setPosition(1.0);
     }
 
-    if ((gamepad1.left_bumper) && (backArm.getPosition() == 1.0) || backArm.getPosition() == 0.99 || backArm.getPosition() == 1.01) {
+    if ((gamepad1.left_bumper) && (backArm.getPosition() <= 1.01 && backArm.getPosition() >= 0.99)) {
         backArm.setPosition(0.5);
     }
 
