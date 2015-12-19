@@ -24,7 +24,7 @@ public class AutoTester extends OpMode {
     final static double forwardCounts = ENCODER_CPR * forwardRotations * GEAR_RATIO;
 
     // 90 degree turn calcluations
-    final static double turningDistance = 10.84831;
+    final static double turningDistance = 10;
     final static double turningRotations = turningDistance / CIRCUMFERENCE;
     final static double turningCounts = ENCODER_CPR * turningRotations * GEAR_RATIO;
 
